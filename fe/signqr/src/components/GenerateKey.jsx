@@ -17,7 +17,7 @@ export default function GenerateKey() {
         setIsGeneratedKey(true);
       })
       .catch((err) => {
-        console.log(err);
+        console.log(error);
       });
   }
 
