@@ -49,7 +49,7 @@ export default function GenerateKey() {
           />
           <button
             onClick={() => handleCopy(publicKey)}
-            className="text-yellow mx-auto w-fit rounded-lg bg-igreen px-3 py-1 text-sm font-bold text-white"
+            className="text-blue mx-auto w-fit rounded-lg bg-igreen px-3 py-1 text-sm font-bold text-white"
           >
             Copy
           </button>
@@ -75,12 +75,12 @@ export default function GenerateKey() {
       </div>
       <button
         onClick={() => getKey()}
-        className="mx-auto mb-3 w-fit rounded-lg bg-iyellow px-3 py-2 font-bold text-ipurple"
+        className="mx-auto mb-3 w-fit rounded-lg bg-iblue px-3 py-2 font-bold text-ipurple"
       >
         Generate
       </button>
       {isGeneratedKey ? (
-        <div className=" mx-auto w-fit rounded-xl border-2 border-iyellow px-3 py-[0.2rem]">
+        <div className=" mx-auto w-fit rounded-xl border-2 border-iblue px-3 py-[0.2rem]">
           <p className=" font-semibold text-white">
             Public key & Private key generated !!
           </p>
