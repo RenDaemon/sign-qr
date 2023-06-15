@@ -67,7 +67,7 @@ export default function GenerateKey() {
           />
           <button
             onClick={() => handleCopy(privateKey)}
-            className="text-yellow mx-auto w-fit rounded-lg bg-igreen px-3 py-1 text-sm font-bold text-white"
+            className="text-blue mx-auto w-fit rounded-lg bg-igreen px-3 py-1 text-sm font-bold text-white"
           >
             Copy
           </button>
