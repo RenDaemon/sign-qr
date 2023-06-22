@@ -16,30 +16,34 @@ app.use((req, res, next) => {
 app.use(express.json()); 
  // Add this line to parse JSON data
 
-app.get('/KeyGen', (req, res) => {
-    const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
-      modulusLength: 4096,
-      publicKeyEncoding: {
-        type: 'spki',
-        format: 'der',
-      },
-      privateKeyEncoding: {
-        type: 'pkcs8',
-        format: 'der',
-      },
-    });
-  
-    // Store the key pair in Firestore
-    db.collection('keyPairs')
-      .add({ publicKey: publicKey.toString('base64'), privateKey: privateKey.toString('base64') })
-      .then((docRef) => {
-        res.send({ id: docRef.id, publicKey: publicKey.toString('base64'), privateKey: privateKey.toString('base64') });
-      })
-
-      .catch((error) => {
-        res.status(500).send({ error: 'Failed to store key pair' });
-      });
+ app.get('/KeyGen', (req, res) => {
+  const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
+    modulusLength: 2048,
+    publicKeyEncoding: {
+      type: 'spki',
+      format: 'der',
+    },
+    privateKeyEncoding: {
+      type: 'pkcs8',
+      format: 'der',
+    },
   });
+
+  const hash = crypto.createHash('sha256');
+  hash.update(publicKey);
+  hash.update(privateKey);
+  const hashedKey = hash.digest('hex');
+
+  // Store the hashed key in the database
+  db.collection('keyPairs')
+    .add({ hashedKey })
+    .then((docRef) => {
+      res.send({ id: docRef.id, publicKey: publicKey.toString('base64'), privateKey: privateKey.toString('base64') });
+    })
+    .catch((error) => {
+      res.status(500).send({ error: 'Failed to store key pair' });
+    });
+});
   
   let uploadedFile; // Variable to store the uploaded file information
 
